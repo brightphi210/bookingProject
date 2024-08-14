@@ -12,16 +12,14 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
         print('User profile created successfully')
     else:
-        print('Error occured, Profile not created.')
-
-
+        print('User profile not created, user already exists.')
 
 @receiver(post_save, sender=User)
 def update_profile(sender, instance, created, **kwargs):
-    
-    try:
-        if created == False:
-            instance.Profile.save()
+    if not created:
+        try:
+            instance.profile.save()
             print('Profile updated successfully')
-    except:
-        instance.profile = None
+        except Exception as e:
+            print(f'Error occurred: {e}')
+            instance.profile = None

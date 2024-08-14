@@ -70,7 +70,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(default='default.png', blank=True, null=True, upload_to='profile_pics/')
 
     def __str__(self):
-        return self.user.name
+        return self.user.email
     
 
 class RoomCategory(models.Model):
